@@ -60,8 +60,16 @@ body{
   background-color: bisque;
   margin-top: 10px;
   font-weight: bold;
+  border-radius: 15px;
 }
 
 .btn-option:hover{
   background-color: aquamarine;
+}
+
+.correct{
+  background-color: lightgreen;
+}
+.wrong{
+  background-color: red;
 }
