@@ -3,6 +3,8 @@ import './App.css';
 import Main from './components/Main';
 import Header from './components/header';
 import Loader from './components/Loader';
+import Error from './components/Error';
+import StartScreen from './components/StartScreen';
 
 const initalState = {
   questions:[],
@@ -22,6 +24,8 @@ function App() {
 
    const [{status, questions}, dispatch ] = useReducer(reducer, initalState)
 
+   const questionsCount = questions.length
+
   useEffect(() => {
     fetch('http://localhost:9000/questions')
     .then(res => res.json())
@@ -35,6 +39,8 @@ function App() {
           <Header/> 
           <Main> 
             {status === 'loading' && <Loader/>}
+            {status === 'error' && <Error/>}
+            {status === 'ready' && <StartScreen questionsCount={questionsCount}/>}
           </Main>
       </div>
     </div>
