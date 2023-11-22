@@ -54,3 +54,14 @@ body{
   font-weight: bold;
   border-radius: 10px;
 }
+
+.btn-option{
+  width: 100%;
+  background-color: bisque;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.btn-option:hover{
+  background-color: aquamarine;
+}

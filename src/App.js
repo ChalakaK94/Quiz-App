@@ -5,10 +5,12 @@ import Header from './components/header';
 import Loader from './components/Loader';
 import Error from './components/Error';
 import StartScreen from './components/StartScreen';
+import Question from './components/Question';
 
 const initalState = {
   questions:[],
-  status:'loading'
+  status:'loading',
+  index:0
 }
 
 function reducer(state,action){
@@ -18,11 +20,14 @@ function reducer(state,action){
       
     case 'dataFailed':
       return {...state, status:'error'}
+    
+    case 'start':
+      return { ...state, status: 'active' };
   }
 }
 function App() {
 
-   const [{status, questions}, dispatch ] = useReducer(reducer, initalState)
+   const [{status, questions, index}, dispatch ] = useReducer(reducer, initalState)
 
    const questionsCount = questions.length
 
@@ -40,7 +45,8 @@ function App() {
           <Main> 
             {status === 'loading' && <Loader/>}
             {status === 'error' && <Error/>}
-            {status === 'ready' && <StartScreen questionsCount={questionsCount}/>}
+            {status === 'ready' && <StartScreen questionsCount={questionsCount} dispatch={dispatch}/>}
+            {status === 'active' && <Question question={questions[index]}/>}
           </Main>
       </div>
     </div>
