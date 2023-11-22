@@ -74,6 +74,10 @@ body{
   background-color: red;
 }
 
-.start-btn{
-  
+.finish{
+  text-align: center;
+  font-weight: bold;
+  background-color: aquamarine;
+  padding: 15px;
+  border-radius: 20px;
 }
