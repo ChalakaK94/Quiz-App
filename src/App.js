@@ -9,13 +9,15 @@ import Question from './components/Question';
 import NextButton from './components/NextButton';
 import Progress from './components/Progress';
 import FinishScreen from './components/FinishScreen';
+import Timer from "./components/Timer";
 
 const initalState = {
   questions:[],
   status:'loading',
   index:0,
   newAnswer: null,
-  points: 0
+  points: 0,
+  secondsRemaining : 10
 }
 
 function reducer(state,action){
@@ -52,7 +54,7 @@ function reducer(state,action){
 }
 function App() {
 
-   const [{status, questions, index, newAnswer, points}, dispatch ] = useReducer(reducer, initalState)
+   const [{status, questions, index, newAnswer, points, secondsRemaining}, dispatch ] = useReducer(reducer, initalState)
 
    const questionsCount = questions.length
 
@@ -75,9 +77,12 @@ function App() {
             {status === 'ready' && <StartScreen questionsCount={questionsCount} dispatch={dispatch}/>}
             {status === 'active' && 
              <>
-             <Progress questionsCount={questionsCount} index={index} points={points} maxPoints={maxPoints}/> 
-             <Question question={questions[index]} dispatch={dispatch} newAnswer={newAnswer}/> 
-                <NextButton newAnswer={newAnswer} dispatch={dispatch} index={index} questionsCount={questionsCount} />
+             <Progress questionsCount={questionsCount} index={index} points={points} maxPoints={maxPoints}/>
+             <Question question={questions[index]} dispatch={dispatch} newAnswer={newAnswer}/>
+                 <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                 <Timer second={secondsRemaining} />
+                 <NextButton newAnswer={newAnswer} dispatch={dispatch} index={index} questionsCount={questionsCount} />
+                 </div>
              </>}
              {status === 'finished' && <FinishScreen points={points} maxPoints={maxPoints} dispatch={dispatch}/>}
           </Main>
