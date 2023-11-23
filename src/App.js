@@ -29,7 +29,7 @@ function reducer(state,action){
       return {...state, status:'error'}
     
     case 'start':
-      return { ...state, status: 'active' };
+      return { ...state, status: 'active' ,secondsRemaining: state.questions.length * 30 };
     
     case 'newAnswer':
       return {...state, newAnswer: action.payload}
@@ -49,6 +49,9 @@ function reducer(state,action){
 
     case 'restart' :
         return  {...initalState, questions: state.questions,status: 'ready' }
+
+      case 'timer':
+          return  {...state, secondsRemaining:  state.secondsRemaining-1, status: state.secondsRemaining === 0 ? 'finished' : state.status};
     
   }
 }
@@ -80,7 +83,7 @@ function App() {
              <Progress questionsCount={questionsCount} index={index} points={points} maxPoints={maxPoints}/>
              <Question question={questions[index]} dispatch={dispatch} newAnswer={newAnswer}/>
                  <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-                 <Timer second={secondsRemaining} />
+                 <Timer second={secondsRemaining} dispatch={dispatch} />
                  <NextButton newAnswer={newAnswer} dispatch={dispatch} index={index} questionsCount={questionsCount} />
                  </div>
              </>}
